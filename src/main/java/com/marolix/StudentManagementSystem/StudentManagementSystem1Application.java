@@ -29,7 +29,9 @@ public class StudentManagementSystem1Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("invoking new student as ui");
-		studentController.registerNewStudent();
+		// studentController.registerNewStudent();
+		// studentController.searchStudentByPhoneNumber();
+		studentController.searchStudentByPhoneNumberOrName();
 
 	}
 
