@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,7 +23,9 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "student")
+@NamedQuery(name="StudentInfo.filterStudentName",query="select s from StudentInfo s where s.studentName=?1")
 public class StudentInfo {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@GeneratedValue(strategy = GenerationType.TABLE)
