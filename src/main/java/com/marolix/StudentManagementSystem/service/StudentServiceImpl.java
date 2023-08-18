@@ -19,6 +19,7 @@ import com.marolix.StudentManagementSystem.entity.StudentLoginDetails;
 import com.marolix.StudentManagementSystem.repository.StudentAddressRepository;
 import com.marolix.StudentManagementSystem.repository.StudentLoginRepository;
 import com.marolix.StudentManagementSystem.repository.StudentRepository;
+import com.marolix.StudentManagementSystem.utility.StudentManagementException;
 
 //@Component
 
@@ -139,14 +140,13 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public StudentDTO searchByUsername(String username) throws StudentManagementException {
 		StudentInfo s = studentRepository.findByLoginUsername(username);
-		
-	 
-			StudentDTO dto = new StudentDTO();
-			dto.setStudentId(s.getStudentId());
-			dto.setStudentName(s.getStudentName());
 
-			return dto;
-		
+		StudentDTO dto = new StudentDTO();
+		dto.setStudentId(s.getStudentId());
+		dto.setStudentName(s.getStudentName());
+
+		return dto;
+
 	}
 
 	@Override
@@ -156,9 +156,11 @@ public class StudentServiceImpl implements StudentService {
 		if (s == null)
 			throw new StudentManagementException("no student found with provided user name");
 		List<StudentAddress> address = s.getAddresses();
+		
 		studentAddressRepository.deleteAll(address);
 		studentLoginRepository.deleteById(username);
-		studentRepository.deleteByUserName(username);
+		// studentRepository.deleteByUserName(username);
+		studentRepository.delete(s);
 
 	}
 

@@ -1,4 +1,4 @@
-package com.marolix.StudentManagementSystem.service;
+package com.marolix.StudentManagementSystem.utility;
 
 public class StudentManagementException extends Exception {
 	public StudentManagementException(String s) {

@@ -3,6 +3,7 @@ package com.marolix.StudentManagementSystem.service;
 import java.util.List;
 
 import com.marolix.StudentManagementSystem.dto.StudentDTO;
+import com.marolix.StudentManagementSystem.utility.StudentManagementException;
 
 public interface StudentService {
 	public StudentDTO registerNewStudent(StudentDTO dto);

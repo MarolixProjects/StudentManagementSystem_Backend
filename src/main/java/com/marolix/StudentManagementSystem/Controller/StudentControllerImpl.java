@@ -25,8 +25,14 @@ import com.marolix.StudentManagementSystem.dto.StudentDTO;
 import com.marolix.StudentManagementSystem.dto.StudentLoginDetailsDTO;
 import com.marolix.StudentManagementSystem.entity.AdmissionType;
 import com.marolix.StudentManagementSystem.entity.StudentAddressType;
-import com.marolix.StudentManagementSystem.service.StudentManagementException;
+
 import com.marolix.StudentManagementSystem.service.StudentService;
+import com.marolix.StudentManagementSystem.utility.StudentManagementException;
+
+class Login {
+	String username;
+	String password;
+}
 
 @Controller(value = "studentController")
 @ResponseBody
@@ -56,14 +62,12 @@ public class StudentControllerImpl {
 
 	@GetMapping(value = "/get")
 //	public ResponseEntity<StudentDTO> searchStudentByPhoneNumber(@PathVariable String phoneNumber) {
-	public ResponseEntity<?> searchStudentByPhoneNumber(@RequestParam("phone") String phoneNumber) {
+	public ResponseEntity<?> searchStudentByPhoneNumber(@RequestParam("phone") String phoneNumber)
+			throws StudentManagementException {
 		StudentDTO d = null;
-		try {
-			d = studentService.searchStudentByPhoneNumber(phoneNumber);
-		} catch (StudentManagementException e) {
 
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
+		d = studentService.searchStudentByPhoneNumber(phoneNumber);
+
 		return new ResponseEntity<StudentDTO>(d, HttpStatus.OK);
 	}
 
@@ -137,5 +141,10 @@ public class StudentControllerImpl {
 
 		}
 		return new ResponseEntity<StudentDTO>(dto, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/dummyget")
+	public String thisIsDummyValidLogin(@RequestBody Login username) {
+		return "dummy login called";
 	}
 }
