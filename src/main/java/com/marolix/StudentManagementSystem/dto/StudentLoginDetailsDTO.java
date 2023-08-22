@@ -2,6 +2,7 @@ package com.marolix.StudentManagementSystem.dto;
 
 public class StudentLoginDetailsDTO {
 	private String username;
+	//min 4 max 8
 	private String password;
 
 	public String getUsername() {

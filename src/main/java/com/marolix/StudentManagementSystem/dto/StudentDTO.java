@@ -13,21 +13,26 @@ public class StudentDTO {
 	private Integer studentId;
 	@NotNull(message = "please provide student name")
 	@Pattern(regexp = "[a-zA-Z]{3,}", message = "please provide a valid name")
+	//can have multiple words each word should be separated by space
 	private String studentName;
-	
+	//can have multiple words each word should be separated by space
 	private String fatherName;
-	
+//change to string object
+	//romans IIIVX
+	//VIII
 	private Character grade;
-	
+
 	@NotNull(message = "please provide phone number")
 	@Pattern(regexp = "[4-9][0-9]{9}", message = "please provide a valid phone number")
 	private String poneNumber;
-	
+//present date or future 
 	private LocalDate joiningDate;
+	//iit/medicon
 	private AdmissionType type;
+	//validate again use appropriate annotation
 	private StudentLoginDetailsDTO loginDTO;
-@Valid
-@NotNull(message="please provide address")
+	@Valid
+	@NotNull(message = "please provide address")
 	private List<StudentAddressDTO> addressDTO;
 
 	public StudentDTO(Integer studentId, String studentName, String fatherName, Character grade, String poneNumber,

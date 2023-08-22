@@ -6,12 +6,19 @@ import com.marolix.StudentManagementSystem.entity.StudentAddressType;
 
 public class StudentAddressDTO {
 	private Integer addressId;
-	@NotNull(message="please provide addressLine1")
+	@NotNull(message = "please provide addressLine1")
+	//will accept alphanumberics and ,-
+	
 	private String addressLine1;
+	//will accept alphanumberics and ,-
 	private String addressLine2;
+	//one word
 	private String city;
+	//only numbers max 6
 	private String pincode;
+	//only albabets each word should be separated by space
 	private String state;
+	//temper/permannet
 	private StudentAddressType addressType;
 
 	public Integer getAddressId() {
