@@ -3,17 +3,31 @@ package com.marolix.StudentManagementSystem.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import com.marolix.StudentManagementSystem.entity.AdmissionType;
 
 public class StudentDTO {
 	private Integer studentId;
+	@NotNull(message = "please provide student name")
+	@Pattern(regexp = "[a-zA-Z]{3,}", message = "please provide a valid name")
 	private String studentName;
+	
 	private String fatherName;
+	
 	private Character grade;
+	
+	@NotNull(message = "please provide phone number")
+	@Pattern(regexp = "[4-9][0-9]{9}", message = "please provide a valid phone number")
 	private String poneNumber;
+	
 	private LocalDate joiningDate;
 	private AdmissionType type;
 	private StudentLoginDetailsDTO loginDTO;
+@Valid
+@NotNull(message="please provide address")
 	private List<StudentAddressDTO> addressDTO;
 
 	public StudentDTO(Integer studentId, String studentName, String fatherName, Character grade, String poneNumber,

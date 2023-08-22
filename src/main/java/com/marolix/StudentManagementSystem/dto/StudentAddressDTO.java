@@ -1,9 +1,12 @@
 package com.marolix.StudentManagementSystem.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.marolix.StudentManagementSystem.entity.StudentAddressType;
 
 public class StudentAddressDTO {
 	private Integer addressId;
+	@NotNull(message="please provide addressLine1")
 	private String addressLine1;
 	private String addressLine2;
 	private String city;

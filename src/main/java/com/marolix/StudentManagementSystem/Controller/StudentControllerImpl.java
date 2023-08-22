@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,26 +39,14 @@ class Login {
 
 @Controller(value = "studentController")
 @ResponseBody
+@Validated
 @RequestMapping(value = "controller")
 public class StudentControllerImpl {
 	@Autowired
 	private StudentService studentService;
 
-//	@GetMapping(value = "/get")
-//	public ResponseEntity<String> webCheck() {
-//		return new ResponseEntity<String>("Hi This is first api call.Hey buddy whts up", HttpStatus.OK);
-//	}
-//	@GetMapping(value = "/get")
-//	public String webCheck() {
-//		return "Hi This is first api call.Hey buddy whts up";
-//	}
-
 	@PostMapping(value = "/register")
-	public ResponseEntity<StudentDTO> registerNewStudent(@RequestBody StudentDTO dto) {
-		ObjectMapper mapper = new ObjectMapper();
-		// mapper.readValue(,StudentDTO.class);
-		System.out.println(dto);
-		System.out.println("register method");
+	public ResponseEntity<StudentDTO> registerNewStudent(@Valid @RequestBody StudentDTO dto) {
 
 		return new ResponseEntity<StudentDTO>(studentService.registerNewStudent(dto), HttpStatus.CREATED);
 	}
@@ -71,35 +62,22 @@ public class StudentControllerImpl {
 		return new ResponseEntity<StudentDTO>(d, HttpStatus.OK);
 	}
 
-	public void searchStudentByPhoneNumberOrName() {
+	public void searchStudentByPhoneNumberOrName() throws StudentManagementException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("enter phone number");
 		String phone = sc.next();
 		System.out.println("enter name");
 		String name = sc.next();
-		try {
-			List<StudentDTO> s = studentService.filterByPhoneOrName(phone, name);
-			System.out.println(s);
-		} catch (StudentManagementException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
 
+		List<StudentDTO> s = studentService.filterByPhoneOrName(phone, name);
+		System.out.println(s);
 	}
 
-	public void searchByUserName() {
+	public void searchByUserName() throws StudentManagementException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("enter user name");
 
-		try {
-			StudentDTO list = studentService.searchByUsername(sc.next());
-
-			System.out.println(list);
-
-		} catch (StudentManagementException e) {
-
-			System.err.println(e.getMessage());
-		}
+		StudentDTO list = studentService.searchByUsername(sc.next());
 
 	}
 
@@ -131,15 +109,12 @@ public class StudentControllerImpl {
 
 //	@PutMapping(value = "/update/old/{phoneNumber}/new/{newPhoneNumber}")
 	@PutMapping(value = "/update/old/{phoneNumber}")
-	public ResponseEntity<?> updateStudentDetails(@PathVariable String phoneNumber,
-			@RequestBody String newPhoneNumber) {
+	public ResponseEntity<?> updateStudentDetails(@PathVariable String phoneNumber, @RequestBody String newPhoneNumber)
+			throws StudentManagementException {
 		StudentDTO dto = null;
-		try {
-			dto = studentService.updateStudent(phoneNumber, newPhoneNumber);
-		} catch (StudentManagementException e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 
-		}
+		dto = studentService.updateStudent(phoneNumber, newPhoneNumber);
+
 		return new ResponseEntity<StudentDTO>(dto, HttpStatus.OK);
 	}
 
